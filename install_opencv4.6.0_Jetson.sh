@@ -39,17 +39,17 @@ sudo apt-get install -y libv4l-dev v4l-utils qv4l2 v4l2ucp
 sudo apt-get install -y curl
 
 
-echo "------------------------------------"
-echo "** Download opencv "${version}" (2/4)"
-echo "------------------------------------"
-mkdir $folder
-cd ${folder}
-curl -L https://github.com/opencv/opencv/archive/${version}.zip -o opencv-${version}.zip
-curl -L https://github.com/opencv/opencv_contrib/archive/${version}.zip -o opencv_contrib-${version}.zip
-unzip opencv-${version}.zip
-unzip opencv_contrib-${version}.zip
-rm opencv-${version}.zip opencv_contrib-${version}.zip
-cd opencv-${version}/
+# echo "------------------------------------"
+# echo "** Download opencv "${version}" (2/4)"
+# echo "------------------------------------"
+# mkdir $folder
+# cd ${folder}
+# curl -L https://github.com/opencv/opencv/archive/${version}.zip -o opencv-${version}.zip
+# curl -L https://github.com/opencv/opencv_contrib/archive/${version}.zip -o opencv_contrib-${version}.zip
+# unzip opencv-${version}.zip
+# unzip opencv_contrib-${version}.zip
+# rm opencv-${version}.zip opencv_contrib-${version}.zip
+cd ../opencv/
 
 
 echo "------------------------------------"
@@ -57,8 +57,8 @@ echo "** Build opencv "${version}" (3/4)"
 echo "------------------------------------"
 mkdir release
 cd release/
-cmake -D WITH_CUDA=ON -D WITH_CUDNN=ON -D CUDA_ARCH_BIN="7.2,8.7" -D CUDA_ARCH_PTX="" -D OPENCV_GENERATE_PKGCONFIG=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules -D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
-make -j$(nproc)
+cmake -D WITH_CUDA=ON -D WITH_CUDNN=ON -D CUDA_ARCH_BIN="7.2,8.7" -D CUDA_ARCH_PTX="" -D OPENCV_GENERATE_PKGCONFIG=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules -D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+make -j4
 
 
 echo "------------------------------------"
